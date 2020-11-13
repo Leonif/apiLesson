@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		790BE5D02559A123005582E8 /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790BE5CF2559A123005582E8 /* Future.swift */; };
 		792BA4E52521BBA900F34670 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792BA4E42521BBA900F34670 /* ApiManager.swift */; };
 		792BA4E92521BC2200F34670 /* FriendsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792BA4E82521BC2200F34670 /* FriendsService.swift */; };
 		792BA4ED2521C02700F34670 /* FriendListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792BA4EC2521C02700F34670 /* FriendListViewController.swift */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		1A26314C887E92362835D264 /* Pods_apiLesson.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_apiLesson.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E58729DC09486D6187D16CC /* Pods-apiLesson.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-apiLesson.debug.xcconfig"; path = "Target Support Files/Pods-apiLesson/Pods-apiLesson.debug.xcconfig"; sourceTree = "<group>"; };
+		790BE5CF2559A123005582E8 /* Future.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Future.swift; sourceTree = "<group>"; };
 		792BA4E42521BBA900F34670 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		792BA4E82521BC2200F34670 /* FriendsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsService.swift; sourceTree = "<group>"; };
 		792BA4EC2521C02700F34670 /* FriendListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewController.swift; sourceTree = "<group>"; };
@@ -69,6 +71,14 @@
 				1A26314C887E92362835D264 /* Pods_apiLesson.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		790BE5CE2559A101005582E8 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				790BE5CF2559A123005582E8 /* Future.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		792BA4DE2521BB1C00F34670 /* Supported Files */ = {
@@ -123,6 +133,7 @@
 			children = (
 				792BA4E22521BB8F00F34670 /* Presentation */,
 				792BA4DE2521BB1C00F34670 /* Supported Files */,
+				790BE5CE2559A101005582E8 /* Utils */,
 				7952663E251CDBAE009179C2 /* LaunchScreen.storyboard */,
 				7982D6252558AC9500D7AF42 /* Network */,
 			);
@@ -286,6 +297,7 @@
 				7982D61A2558AB2400D7AF42 /* VKResponse.swift in Sources */,
 				792BA4ED2521C02700F34670 /* FriendListViewController.swift in Sources */,
 				79526634251CDBAB009179C2 /* AppDelegate.swift in Sources */,
+				790BE5D02559A123005582E8 /* Future.swift in Sources */,
 				79526636251CDBAB009179C2 /* SceneDelegate.swift in Sources */,
 				7982D61D2558ABA900D7AF42 /* FriendInfo.swift in Sources */,
 			);

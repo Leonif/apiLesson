@@ -11,7 +11,7 @@ final class FriendListViewController: UIViewController {
     
     let rootView = FriendsView()
     let service = FriendsService()
-    var friendList: [FriendInfo] = []
+    var friendList: [FriendInfoViewItem] = []
     
     init() {
         super.init(nibName: .none, bundle: .none)
@@ -31,15 +31,21 @@ final class FriendListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        service.getFirendInfo { [unowned self] (result) in
-            switch result {
-            case let .success(list):
-                friendList = list
-                rootView.tableView.reloadData()
-            case let .failure(error):
-                debugPrint(error.localizedDescription)
+        service.getFirendInfo()
+            .map { (friendInfoList) in
+                friendInfoList.map { friend in
+                    FriendInfoViewItem(name: friend.firstName, imageUrlString: friend.photo50)
+                }
             }
-        }
+            .add { [unowned self] (result) in
+                switch result {
+                case let .success(items):
+                    friendList = items
+                    rootView.tableView.reloadData()
+                case let .failure(error):
+                    debugPrint(error.localizedDescription)
+                }
+            }
     }
     
     private func setup() {
@@ -58,11 +64,11 @@ extension FriendListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
         let friend = friendList[indexPath.row]
         
-        cell.textLabel?.text = friend.firstName
+        cell.textLabel?.text = friend.name
         cell.imageView?.image = UIImage(named: "astronaut")
         
         DispatchQueue.global().async {
-            let data = try! Data(contentsOf: URL(string: friend.photo50)!)
+            let data = try! Data(contentsOf: URL(string: friend.imageUrlString)!)
             
             DispatchQueue.main.async {
                 cell.imageView?.image = UIImage(data: data)
@@ -71,4 +77,10 @@ extension FriendListViewController: UITableViewDataSource {
         
         return cell
     }
+}
+
+
+struct FriendInfoViewItem {
+    let name: String
+    let imageUrlString: String
 }
