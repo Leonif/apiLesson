@@ -11,6 +11,8 @@
 		792BA4E52521BBA900F34670 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792BA4E42521BBA900F34670 /* ApiManager.swift */; };
 		792BA4E92521BC2200F34670 /* FriendsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792BA4E82521BC2200F34670 /* FriendsService.swift */; };
 		792BA4ED2521C02700F34670 /* FriendListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792BA4EC2521C02700F34670 /* FriendListViewController.swift */; };
+		793427AD255EEE3B0071C608 /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793427AC255EEE3B0071C608 /* PhotoService.swift */; };
+		793427B0255EF6330071C608 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793427AF255EF6330071C608 /* PhotoCell.swift */; };
 		79526634251CDBAB009179C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79526633251CDBAB009179C2 /* AppDelegate.swift */; };
 		79526636251CDBAB009179C2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79526635251CDBAB009179C2 /* SceneDelegate.swift */; };
 		79526638251CDBAB009179C2 /* WKAutorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79526637251CDBAB009179C2 /* WKAutorizationViewController.swift */; };
@@ -30,6 +32,8 @@
 		792BA4E42521BBA900F34670 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		792BA4E82521BC2200F34670 /* FriendsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsService.swift; sourceTree = "<group>"; };
 		792BA4EC2521C02700F34670 /* FriendListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewController.swift; sourceTree = "<group>"; };
+		793427AC255EEE3B0071C608 /* PhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
+		793427AF255EF6330071C608 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		79526630251CDBAB009179C2 /* apiLesson.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = apiLesson.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79526633251CDBAB009179C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		79526635251CDBAB009179C2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -153,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				792BA4EC2521C02700F34670 /* FriendListViewController.swift */,
+				793427AF255EF6330071C608 /* PhotoCell.swift */,
 				7982D6162558A13D00D7AF42 /* FriendsView.swift */,
 			);
 			path = Friends;
@@ -172,6 +177,7 @@
 			children = (
 				7982D61F2558ABB300D7AF42 /* Entities */,
 				792BA4E72521BBAE00F34670 /* Api */,
+				793427AC255EEE3B0071C608 /* PhotoService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -295,8 +301,10 @@
 				7952664C251CDC80009179C2 /* WKAutorizationView.swift in Sources */,
 				792BA4E52521BBA900F34670 /* ApiManager.swift in Sources */,
 				7982D61A2558AB2400D7AF42 /* VKResponse.swift in Sources */,
+				793427B0255EF6330071C608 /* PhotoCell.swift in Sources */,
 				792BA4ED2521C02700F34670 /* FriendListViewController.swift in Sources */,
 				79526634251CDBAB009179C2 /* AppDelegate.swift in Sources */,
+				793427AD255EEE3B0071C608 /* PhotoService.swift in Sources */,
 				790BE5D02559A123005582E8 /* Future.swift in Sources */,
 				79526636251CDBAB009179C2 /* SceneDelegate.swift in Sources */,
 				7982D61D2558ABA900D7AF42 /* FriendInfo.swift in Sources */,

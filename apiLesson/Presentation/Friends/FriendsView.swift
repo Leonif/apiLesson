@@ -9,6 +9,7 @@ import UIKit
 
 class FriendsView: UIView {
     
+    private(set) var imageView = UIImageView()
     private(set) var tableView = UITableView()
     
     init() {
@@ -22,8 +23,16 @@ class FriendsView: UIView {
     }
     
     override func updateConstraints() {
+        
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: 100),
+            imageView.heightAnchor.constraint(equalToConstant: 100),
+        ])
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: topAnchor, constant: 110),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
@@ -37,6 +46,9 @@ class FriendsView: UIView {
     
     private func setup() {
         backgroundColor = .red
+        imageView.image = UIImage(named: "cosmonaut")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(imageView)
         setupTableView()
         setNeedsUpdateConstraints()
     }
