@@ -11,7 +11,11 @@ final class FriendListViewController: UIViewController {
     
     let rootView = FriendsView()
     let service = FriendsService()
+    let photoService = PhotoService()
     var friendList: [FriendInfoViewItem] = []
+    
+    
+//    var notLoadedImages: [String: IndexPath] = [:]
     
     init() {
         super.init(nibName: .none, bundle: .none)
@@ -30,6 +34,13 @@ final class FriendListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+//        photoService.urlLoaded = { [unowned self] url in
+//            if let indexPath = notLoadedImages[url] {
+//                rootView.tableView.reloadRows(at: [indexPath], with: .automatic)
+//            }
+//        }
         
         service.getFirendInfo()
             .map { (friendInfoList) in
@@ -67,13 +78,12 @@ extension FriendListViewController: UITableViewDataSource {
         cell.textLabel?.text = friend.name
         cell.imageView?.image = UIImage(named: "astronaut")
         
-        DispatchQueue.global().async {
-            let data = try! Data(contentsOf: URL(string: friend.imageUrlString)!)
-            
-            DispatchQueue.main.async {
-                cell.imageView?.image = UIImage(data: data)
-            }
+        photoService.photo(url: friend.imageUrlString) { image in
+            cell.imageView?.image = image
+//            tableView.reloadRows(at: [indexPath], with: .automatic)
         }
+        
+        
         
         return cell
     }
