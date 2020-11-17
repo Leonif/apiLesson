@@ -1,13 +1,13 @@
 //
-//  FriendsView.swift
+//  NewsView.swift
 //  apiLesson
 //
-//  Created by Leonid Nifantyev on 08.11.2020.
+//  Created by Leonid Nifantyev on 16.11.2020.
 //
 
 import UIKit
 
-class FriendsView: UIView {
+class NewsView: UIView {
     private(set) var tableView = UITableView()
     
     init() {
@@ -42,6 +42,8 @@ class FriendsView: UIView {
     
     private func setupTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 1.0
         addSubview(tableView)
     }
 }
