@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Alamofire
 import WebKit
 import SwiftKeychainWrapper
 
@@ -34,7 +33,7 @@ class WKAutorizationViewController: UIViewController {
             URLQueryItem(name: "client_id", value: "7611455"),
             URLQueryItem(name: "display", value: "mobile"),
             URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
-            URLQueryItem(name: "scope", value: "262150"),
+            URLQueryItem(name: "scope", value: "photos, wall, friends"),
             URLQueryItem(name: "response_type", value: "token"),
             URLQueryItem(name: "v", value: "5.68")
         ]
@@ -70,6 +69,8 @@ extension WKAutorizationViewController: WKNavigationDelegate {
             
             ApiManager.session.token = token
             ApiManager.session.userId = userId
+            
+            debugPrint(token)
             
             autorised?(true)
         } else {

@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         
         if !ApiManager.session.token.isEmpty, !ApiManager.session.userId.isEmpty {
-            window?.rootViewController = FriendListViewController()
+            window?.rootViewController = createMainScreen()
             window?.makeKeyAndVisible()
         } else {
             let vc = WKAutorizationViewController()
@@ -26,11 +26,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window?.makeKeyAndVisible()
             vc.autorised = { [unowned self] success in
                 if success {
-                    window?.rootViewController = FriendListViewController()
+                    window?.rootViewController = createMainScreen()
                     window?.makeKeyAndVisible()
                 }
             }
         }
+    }
+    
+    
+    private func createMainScreen() -> UITabBarController {
+        let tabBar = UITabBarController()
+        
+        let friends = FriendListViewController()
+        friends.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
+        
+        let feed = NewsViewController()
+        feed.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: 1)
+        
+        tabBar.viewControllers = [friends, feed]
+        
+        return tabBar
     }
 }
 

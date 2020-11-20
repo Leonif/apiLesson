@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PromiseKit
 
 final class FriendListViewController: UIViewController {
     
@@ -13,9 +14,6 @@ final class FriendListViewController: UIViewController {
     let service = FriendsService()
     let photoService = PhotoService()
     var friendList: [FriendInfoViewItem] = []
-    
-    
-//    var notLoadedImages: [String: IndexPath] = [:]
     
     init() {
         super.init(nibName: .none, bundle: .none)
@@ -35,28 +33,18 @@ final class FriendListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-//        photoService.urlLoaded = { [unowned self] url in
-//            if let indexPath = notLoadedImages[url] {
-//                rootView.tableView.reloadRows(at: [indexPath], with: .automatic)
-//            }
-//        }
-        
-        service.getFirendInfo()
-            .map { (friendInfoList) in
-                friendInfoList.map { friend in
-                    FriendInfoViewItem(name: friend.firstName, imageUrlString: friend.photo50)
-                }
+        firstly {
+            service.getFirendInfo()
+        }.map { friendInfoList in
+            friendInfoList.map { friend in
+                FriendInfoViewItem(name: friend.firstName, imageUrlString: friend.photo50)
             }
-            .add { [unowned self] (result) in
-                switch result {
-                case let .success(items):
-                    friendList = items
-                    rootView.tableView.reloadData()
-                case let .failure(error):
-                    debugPrint(error.localizedDescription)
-                }
-            }
+        }.done { items in
+            self.friendList = items
+            self.rootView.tableView.reloadData()
+        }.catch { error in
+            debugPrint(error.localizedDescription)
+        }
     }
     
     private func setup() {

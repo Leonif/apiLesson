@@ -6,7 +6,7 @@ target 'apiLesson' do
   use_frameworks!
 
   # Pods for apiLesson
-  pod 'Alamofire', '~> 5.2'
   pod 'SwiftKeychainWrapper'
+  pod "PromiseKit", "~> 6.8"
 
 end
