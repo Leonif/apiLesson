@@ -14,6 +14,8 @@ class NewsViewController: UIViewController {
     let servise = NewsFeedService()
     var news: [ResponseItem] = []
     let formatter = DateFormatter()
+    var nextId: String?
+    var isLoading: Bool = false
     
     init() {
         super.init(nibName: .none, bundle: .none)
@@ -33,27 +35,48 @@ class NewsViewController: UIViewController {
     private func setup() {
         rootView.tableView.dataSource = self
         rootView.tableView.delegate = self
+        rootView.tableView.prefetchDataSource = self
         rootView.tableView.register(NewsCell.self, forCellReuseIdentifier: NewsCell.id)
     }
     
     override func viewDidLoad() {
+        loadNews() {
+            self.rootView.tableView.reloadData()
+        }
+        rootView.refreshControl.addTarget(self, action: #selector(refreshFeed), for: .valueChanged)
+    }
+    
+    
+    private func loadNews(callback: (() -> Void)? = nil) {
         firstly {
             servise.getFeed()
         }.map { feed -> [ResponseItem] in
-            feed.items.filter {
-                switch $0.text {
-                case .some:
-                    return true
-                default:
-                    return false
-                }
-            }
-
+            self.mapNews(feed: feed)
         }.done { (items) in
             self.news = items
-            self.rootView.tableView.reloadData()
+            callback?()
         }.catch { (error) in
+            callback?()
             debugPrint(error.localizedDescription)
+        }
+    }
+    
+    private func mapNews(feed: Feed) -> [ResponseItem] {
+        self.nextId = feed.nextFrom
+        
+        return feed.items.filter {
+            switch $0.text {
+            case .some:  return true
+            default:     return false
+            }
+        }
+    }
+    
+    
+    @objc
+    private func refreshFeed() {
+        loadNews() {
+            self.rootView.refreshControl.endRefreshing()
         }
     }
 }
@@ -73,4 +96,38 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
         fatalError()
     }
    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard !isLoading else { return }
+        
+        if indexPath.row == news.count - 1 {
+            let lastIndex = indexPath.row
+            isLoading = true
+            firstly {
+                servise.getFeed(startFrom: nextId)
+            }.done { (feed) in
+                let newPageItems = self.mapNews(feed: feed)
+                self.news.append(contentsOf: newPageItems)
+                let indexPaths = self.makeIndexSet(lastIndex: lastIndex, newPageItems.count)
+                tableView.insertRows(at: indexPaths, with: .automatic)
+                self.isLoading = false
+            }.catch { (error) in
+                debugPrint(error.localizedDescription)
+                self.isLoading = false
+            }
+        }
+    }
+    
+    private func makeIndexSet(lastIndex: Int, _ newsCount: Int) -> [IndexPath] {
+        let last = lastIndex + newsCount
+        let indexPaths = Array(lastIndex + 1...last).map { IndexPath(row: $0, section: 0) }
+        
+        return indexPaths
+    }
+    
+}
+
+extension NewsViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        
+    }
 }

@@ -9,6 +9,7 @@ import UIKit
 
 class NewsView: UIView {
     private(set) var tableView = UITableView()
+    private(set) var refreshControl = UIRefreshControl()
     
     init() {
         super.init(frame: .zero)
@@ -37,6 +38,7 @@ class NewsView: UIView {
     private func setup() {
         backgroundColor = .red
         setupTableView()
+        setupRefreshControl()
         setNeedsUpdateConstraints()
     }
     
@@ -45,6 +47,12 @@ class NewsView: UIView {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 1.0
         addSubview(tableView)
+    }
+    
+    
+    private func setupRefreshControl() {
+        refreshControl.attributedTitle = NSAttributedString(string: "Refreshing...")
+        tableView.refreshControl = refreshControl
     }
 }
 

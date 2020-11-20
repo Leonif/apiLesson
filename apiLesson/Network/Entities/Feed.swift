@@ -8,9 +8,11 @@
 // MARK: - Response
 struct Feed: Codable {
     let items: [ResponseItem]
+    let nextFrom: String
 
     enum CodingKeys: String, CodingKey {
         case items
+        case nextFrom = "next_from"
     }
 }
 
@@ -20,12 +22,16 @@ struct Feed: Codable {
 struct ResponseItem: Codable {
     var text: String?
     var photoUrl: String?
+    var height: Int?
+    var width: Int?
     
     init(from decoder: Decoder) throws {
         let mainContainer = try decoder.container(keyedBy: MainKeys.self)
         let attachments = try mainContainer.decodeIfPresent([Attachment].self, forKey: .attachments)
         if let attch = attachments?.first, let urlString = attch.photo?.photo130 {
             photoUrl = urlString
+            height = attch.photo?.height
+            width = attch.photo?.width
         }
         text = try mainContainer.decodeIfPresent(String.self, forKey: .text)
     }
