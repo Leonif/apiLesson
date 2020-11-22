@@ -71,15 +71,20 @@ class PhotoService {
     private func loadPhoto(url: String,completion: @escaping (UIImage) -> Void) {
         var image: UIImage = UIImage()
         DispatchQueue.global().async {
-            let data = try! Data(contentsOf: URL(string: url)!)
             
-            DispatchQueue.main.async {
-                image = UIImage(data: data)!
-                self.images[url] = image
-                completion(image)
+            
+            do {
+                let data = try Data(contentsOf: URL(string: url)!)
+                DispatchQueue.main.async {
+                    image = UIImage(data: data)!
+                    self.images[url] = image
+                    completion(image)
+                }
+                
+                self.saveImageToCache(url: url, image: image)
+            } catch {
+                debugPrint(error.localizedDescription)
             }
-            
-            self.saveImageToCache(url: url, image: image)
         }
     }
     
