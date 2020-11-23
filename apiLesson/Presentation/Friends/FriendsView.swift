@@ -42,6 +42,8 @@ class FriendsView: UIView {
     
     private func setupTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 1.0
         addSubview(tableView)
     }
 }

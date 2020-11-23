@@ -49,7 +49,7 @@ final class FriendListViewController: UIViewController {
     
     private func setup() {
         rootView.tableView.dataSource = self
-        rootView.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        rootView.tableView.register(FriendCell.self, forCellReuseIdentifier: FriendCell.id)
     }
 }
 
@@ -60,25 +60,28 @@ extension FriendListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.id) as? FriendCell else { fatalError("cell FriendCell is not created") }
+        
         let friend = friendList[indexPath.row]
+        cell.bind(friend: friend, photoService: photoService)
         
-        cell.textLabel?.text = friend.name
-        cell.imageView?.image = UIImage(named: "astronaut")
-        
-        photoService.photo(url: friend.imageUrlString) { image in
-            cell.imageView?.image = image
-//            tableView.reloadRows(at: [indexPath], with: .automatic)
-        }
-        
-        
-        
+//        photoService.photo(url: friend.imageUrlString) { image in
+//            cell.imageView?.image = image
+////            tableView.reloadRows(at: [indexPath], with: .automatic)
+//        }
         return cell
     }
 }
 
 
-struct FriendInfoViewItem {
+struct FriendInfoViewItem: Identifiable {
+    var id: String = UUID().uuidString
+    
     let name: String
     let imageUrlString: String
+    
+    
+    static var mock: FriendInfoViewItem {
+        return FriendInfoViewItem(id: "23", name: "Test", imageUrlString: "")
+    }
 }

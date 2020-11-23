@@ -35,7 +35,6 @@ class NewsViewController: UIViewController {
     private func setup() {
         rootView.tableView.dataSource = self
         rootView.tableView.delegate = self
-        rootView.tableView.prefetchDataSource = self
         rootView.tableView.register(NewsCell.self, forCellReuseIdentifier: NewsCell.id)
     }
     
@@ -89,7 +88,21 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.id) as? NewsCell {
             let item = news[indexPath.row]
+            if item.isOpen {
+                debugPrint("")
+            }
             cell.bind(item: item)
+            
+            cell.tap = { item in
+                if let index = self.news.firstIndex(where: { $0.text == item.text  }) {
+                    debugPrint(self.news[index],self.news[index].isOpen)
+                    self.news[index].isOpen.toggle()
+                    debugPrint(self.news[index],self.news[index].isOpen)
+                    tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                    
+                }
+            }
+            
             return cell
         }
         
@@ -126,8 +139,4 @@ extension NewsViewController: UITableViewDataSource, UITableViewDelegate {
     
 }
 
-extension NewsViewController: UITableViewDataSourcePrefetching {
-    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        
-    }
-}
+
