@@ -24,6 +24,7 @@ struct ResponseItem: Codable {
     var photoUrl: String?
     var height: Int?
     var width: Int?
+    var isOpen: Bool = false
     
     init(from decoder: Decoder) throws {
         let mainContainer = try decoder.container(keyedBy: MainKeys.self)

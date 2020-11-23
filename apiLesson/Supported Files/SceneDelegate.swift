@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftKeychainWrapper
+import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -37,7 +38,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func createMainScreen() -> UITabBarController {
         let tabBar = UITabBarController()
         
-        let friends = FriendListViewController()
+        let friends = UIHostingController(rootView: svFriendListView())//FriendListViewController()
         friends.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
         
         let feed = NewsViewController()
